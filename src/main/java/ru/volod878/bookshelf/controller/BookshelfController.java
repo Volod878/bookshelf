@@ -7,7 +7,9 @@ import ru.volod878.bookshelf.dao.BookDao;
 import ru.volod878.bookshelf.model.Author;
 import ru.volod878.bookshelf.model.Book;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -23,8 +25,29 @@ public class BookshelfController {
     }
 
     @GetMapping("/books")
-    public List<Book> getAllBooks() {
-        return bookDao.getAll();
+    public List<Book> getAllBooks(@RequestParam(name = "sort_by", defaultValue = "") String sortBy) {
+        switch (sortBy) {
+            case "id":
+                return bookDao.getAll()
+                        .stream()
+                        .sorted(Comparator.comparing(Book::getId))
+                        .collect(Collectors.toList());
+            case "name":
+                return bookDao.getAll()
+                        .stream()
+                        .sorted(Comparator.comparing(Book::getName))
+                        .collect(Collectors.toList());
+            default:
+                return bookDao.getAll();
+        }
+    }
+
+    @GetMapping("/books/filter")
+    public List<Book> getAllExistingBooks(@RequestParam(name = "exist") boolean exist) {
+        return bookDao.getAll()
+                .stream()
+                .filter(book -> book.getExist() == exist)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/author/{id}/books")

@@ -39,7 +39,7 @@
 
 ### Примеры запросов POST
 
-> + http://localhost:8000/api/author/1/books - Добавить книгу автора с id = 1 Тело запроса
+> + http://localhost:8000/api/author/1/books - Добавить книгу автора с id = 1
 >
 > Тело запроса
 > ```json
@@ -49,7 +49,7 @@
 > }
 > ```
 
-> + http://localhost:8000/api/author - Добавить автора
+> + http://localhost:8000/api/authors - Добавить автора
 >
 > Тело запроса
 > ```json
@@ -75,7 +75,7 @@
 > }
 > ```
 
-> + http://localhost:8000/api/author - Редактировать автора
+> + http://localhost:8000/api/authors - Редактировать автора
 >
 > Тело запроса
 > ```json
